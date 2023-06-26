@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "individual1m7",
+            "database": "todo_list_db",
+            "username": "ncalderonh",
+            "password": ""
+        }
+    ]
+}
