@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'Bozon Regular';
+    src: url('./assets/fonts/ROHH\ \ Bozon\ Regular.otf');
+    font-family: 'Bozon Bold';
+    src: url(./assets/fonts/ROHH\ \ Bozon\ Bold.otf);
+}
+
+:root {
+    --main-bg-color: #202124;
+    --links-color: #bb86fc;
+    --links-disable: #b19ec7;
+    --links-color-active: #f2e7fe;
+}
+
+#base {
+    font-family: 'Bozon Regular';
+    background-color: var(--main-bg-color);
+}
+
+#h1 {
+    color: var(--links-color-active);    
+    font-family: 'Bozon Bold';
+}
+
+#disabled {
+    color: var(--links-disable);
+    opacity: "70%";
+}
+
+.linka {
+    color: var(--links-color);
+}
+
+.linka:hover {
+    color: var(--links-color-active);
+}
+
+#active {
+    color: var(--links-color-active);
+}
