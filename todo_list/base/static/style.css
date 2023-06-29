@@ -18,7 +18,7 @@
 }
 
 #h1 {
-    color: var(--links-color-active);    
+    color: var(--links-color-active);
     font-family: 'Bozon Bold';
 }
 
@@ -37,4 +37,62 @@
 
 #active {
     color: var(--links-color-active);
+    
+}
+
+p {
+    line-height: 1.4;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+}
+
+a:link {
+    color: var(--links-color);
+}
+
+a:visited {
+    color: var(--links-color);
+}
+
+a:focus {
+    color: var(--links-color-active);
+}
+
+a:hover {
+    color: var(--links-color-active);
+}
+
+a:active {
+    color: var(--links-color-active);
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.console-container {
+    font-family: 'Bozon Bold';
+    font-size: 4em;
+    text-align: center;
+    height: 200px;
+    width: 600px;
+    display: block;
+    position: relative;
+    color: white;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.console-underscore {
+    display: inline-block;
+    position: relative;
+    top: -0.14em;
+    left: 10px;
 }

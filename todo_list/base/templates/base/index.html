@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% block estado1 %}active{% endblock%}
 {% block content %}
 <div class="container m-5 text-center">
-    <h1 id="h1" class="py-5 fs-1">Welcome to</h1>
-    <img src="{% static 'assets/images/todo-list-logo.png' %}" alt="logo" width="400px" height="auto" class="mt-5 pt-5">
+    <div class='console-container mt-5 pt-5'><span id='text'></span><div class='console-underscore' id='console'>_</div></div>
+    <img src="{% static 'assets/images/todo-list-logo.png' %}" alt="logo" width="400px" height="auto" class="shadow-lg p-3 mb-5 rounded">
 </div>
 {% endblock %}
