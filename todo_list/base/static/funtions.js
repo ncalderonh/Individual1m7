@@ -46,3 +46,16 @@ function consoleText(words, id, colors) {
         }
     }, 400)
 }
+
+function frase(){
+    var aFrases=new Array();
+    aFrases[0]=" Frase 1";
+    aFrases[1]=" Frase 2";
+    aFrases[2]=" Frase 3";
+    aFrases[3]=" Frase 4";
+    aFrases[4]=" Frase 5";
+    aFrases[5]=" Frase 6";
+    
+    var numRnd=Math.floor(Math.random()* aFrases.length);
+    document.getElementById("fraseRandom").innerText=aFrases[numRnd];
+    }
