@@ -49,12 +49,17 @@ function consoleText(words, id, colors) {
 
 function frase(){
     var aFrases=new Array();
-    aFrases[0]=" Frase 1";
-    aFrases[1]=" Frase 2";
-    aFrases[2]=" Frase 3";
-    aFrases[3]=" Frase 4";
-    aFrases[4]=" Frase 5";
-    aFrases[5]=" Frase 6";
+    aFrases[0]=" “We cannot solve problems with the kind of thinking we employed when we came up with them.” — Albert Einstein";
+    aFrases[1]=" “Be a light unto yourself; betake yourselves to no external refuge. Hold fast to the Truth. Look not for refuge to anyone besides yourselves.” ― Buddha Shakyamuni";
+    aFrases[2]=" “Learn as if you will live forever, live like you will die tomorrow.” — Mahatma Gandhi";
+    aFrases[3]=" “Develop success from failures. Discouragement and failure are two of the surest stepping stones to success.” ";
+    aFrases[4]=" “Education is the most powerful weapon which you can use to change the world.” — Nelson Mandela";
+    aFrases[5]=" “Just one small positive thought in the morning can change your whole day.” — Dalai Lama";
+    aFrases[6]=" “If we learn to open our hearts, anyone, including the people who drive us crazy, can be our teacher.” ― Pema Chodron";
+    aFrases[7]=" “Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.” — Buddha";
+    aFrases[8]=" “Thousands of candles can be lighted from a single candle, and the life of the candle will not be shortened. Happiness never decreases by being shared.” — Buddha";
+    aFrases[9]=" “An idea that is developed and put into action is more important than an idea that exists only as an idea.” — Buddha";
+    aFrases[10]=" “Teach this triple truth to all: A generous heart, kind speech, and a life of service and compassion are the things which renew humanity.” — Buddha";
     
     var numRnd=Math.floor(Math.random()* aFrases.length);
     document.getElementById("fraseRandom").innerText=aFrases[numRnd];

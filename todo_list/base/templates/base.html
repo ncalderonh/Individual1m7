@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -17,15 +17,23 @@
                 <li class="nav-item">
                     <a class="nav-link " id="{% block estado1 %} {% endblock%}" aria-current="page" href="{% url 'todolist' %}">Home</a>
                 </li>
-                <li class="nav-item">
+                
+                <!-- <li class="nav-item">
                     <a class="nav-link disable disabled" id="{% block estado2 %}disabled{% endblock%}" href="">About</a>
-                </li>
+                </li> -->
+                {% if not user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" id="{% block estado3 %} {% endblock%}" href="{% url 'login' %}">Login</a>
                 </li>
+                {% endif %}
+                {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a id="disabled" class="nav-link disable disabled">Disabled</a>
+                    <a class="nav-link" id="{% block estado4 %} {% endblock%}" href="{% url 'profile' %}">Profile</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% endif %}
             </ul>
         </header>
         {% block content %}
