@@ -1,0 +1,147 @@
+@font-face {
+    font-family: 'Bozon Regular';
+    src: url(./assets/fonts/ROHH\ \ Bozon\ Regular.otf);
+    font-family: 'Bozon Bold';
+    src: url(./assets/fonts/ROHH\ \ Bozon\ Bold.otf);
+}
+
+:root {
+    --main-bg-color: #202124;
+    --links-color: #bb86fc;
+    --links-disable: #b19ec7;
+    --links-color-active: #f2e7fe;
+    --shadow-color: 0deg 0% 0%;
+    --shadow-elevation-low:
+        1px 0px 0.8px hsl(var(--shadow-color) / 0.12),
+        1.3px 0px 1.1px -2.3px hsl(var(--shadow-color) / 0.08),
+        3.3px 0px 2.7px -4.6px hsl(var(--shadow-color) / 0.05);
+    --shadow-elevation-medium:
+        1px 0px 0.8px hsl(var(--shadow-color) / 0.1),
+        1.4px 0px 1.1px -1.2px hsl(var(--shadow-color) / 0.08),
+        3.2px 0px 2.6px -2.3px hsl(var(--shadow-color) / 0.06),
+        7.7px 0px 6.2px -3.4px hsl(var(--shadow-color) / 0.05),
+        16.5px 0px 13.4px -4.6px hsl(var(--shadow-color) / 0.03);
+    --shadow-elevation-high:
+        1px 0px 0.8px hsl(var(--shadow-color) / 0.09),
+        1.5px 0px 1.2px -0.5px hsl(var(--shadow-color) / 0.09),
+        2.4px 0px 1.9px -1px hsl(var(--shadow-color) / 0.08),
+        4.2px 0px 3.4px -1.5px hsl(var(--shadow-color) / 0.07),
+        7.6px 0px 6.2px -2px hsl(var(--shadow-color) / 0.06),
+        12.9px 0px 10.4px -2.6px hsl(var(--shadow-color) / 0.05),
+        20.8px 0.1px 16.8px -3.1px hsl(var(--shadow-color) / 0.04),
+        31.8px 0.1px 25.8px -3.6px hsl(var(--shadow-color) / 0.03),
+        46.3px 0.1px 37.5px -4.1px hsl(var(--shadow-color) / 0.03),
+        65px 0.2px 52.7px -4.6px hsl(var(--shadow-color) / 0.02);
+}
+
+#base {
+    font-family: 'Bozon Regular';
+    background-color: var(--main-bg-color);
+    align-content: center;
+    justify-content: center;
+}
+
+#h1 {
+    color: var(--links-color-active);
+    font-family: 'Bozon Bold';
+}
+
+#disabled {
+    color: var(--links-disable);
+    opacity: "70%";
+}
+
+.linka {
+    color: var(--links-color);
+}
+
+.linka:hover {
+    color: var(--links-color-active);
+}
+
+#active {
+    color: var(--links-color-active);
+
+}
+
+p {
+    line-height: 1.4;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+}
+
+a:link {
+    color: var(--links-color);
+}
+
+a:visited {
+    color: var(--links-color);
+}
+
+a:focus {
+    color: var(--links-color-active);
+}
+
+a:hover {
+    color: var(--links-color-active);
+}
+
+a:active {
+    color: var(--links-color-active);
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.console-container {
+    font-family: 'Bozon Bold';
+    font-size: 4em;
+    text-align: center;
+    height: 200px;
+    width: 600px;
+    display: block;
+    position: relative;
+    color: white;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.console-underscore {
+    display: inline-block;
+    position: relative;
+    top: -0.14em;
+    left: 10px;
+}
+
+#fraseRandom {
+    font-family: 'Bozon Regular';
+    text-align: left;
+}
+
+.fancy {
+    position: relative;
+    white-space: nowrap;
+    color: var(--links-color-active);
+
+    &:after {
+        --deco-height: 0.3125em;
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: calc(var(--deco-height) * -0.625);
+        height: var(--deco-height);
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='64' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23a)'%3E%3Cpath d='M-17 30.5C-1 22 72-4 54 13 37.9 28.2-2.5 57.5 16 55.5s72-29 104-40' stroke='%23bb86fc' stroke-width='10'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M0 0h100v64H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A");
+        background-size: auto 100%;
+        background-repeat: round;
+        background-position: 0em;
+    }
+}

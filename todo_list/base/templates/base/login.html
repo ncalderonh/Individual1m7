@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block estado3 %}active{% endblock%}
+{% block content %}
+<div class="container m-5 text-center">
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-sm-12 col-md-12 pt-5" id="quotebox">
+            <p>
+                <span id="fraseRandom" class="fs-2 text-light text-start"></span>
+            </p>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-sm-12 col-md-12 text-center">
+            <div class="container" style="margin-left: 5rem;">
+                <p class="text-start fs-1">Login</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mt-3">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                                <label for="username">Username</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mt-5">
+                                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
+                                <label for="floatingPassword">Password</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="btn-group col-4" role="group" aria-label="Default button group" style="margin-left: 8rem;">
+                                <button type="button" class="btn btn-outline-secondary disabled">Sign Up</button>
+                                <button type="submit" class="btn btn-outline-warning">Log in</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
