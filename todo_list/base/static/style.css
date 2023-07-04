@@ -98,6 +98,24 @@ a:active {
     opacity: 0;
 }
 
+#notasks {
+    font-size: 3rem;
+    font-family: 'Bozon Bold';
+}
+
+#doit {
+    font-family: 'Bozon Regular';
+    font-size: 2rem;
+}
+
+#checklist {
+    width: 200px;
+    height: auto;
+    align-content: center;
+    display: block;
+    position: relative;
+}
+
 .console-container {
     font-family: 'Bozon Bold';
     font-size: 4em;

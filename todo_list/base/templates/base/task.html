@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block estado4 %}active{% endblock%}
+{% block content %}
+<div class="container mt-5 text-center">
+
+    <div class="container mt-5 text-start">
+        <div class="row">
+            <p>
+            <h1 class="fw-bold fs-2">Task: <span class="fw-normal text-capitalize">{{task}}</span></h1>
+            </p>
+            <br>
+            <div class="container px-5 mt-5">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2"></div>
+                    <div class="col-xl-8 col-lg-8 col-sm-12 col-md-12 text-center">
+                        <div class="card text-start">
+                            <div class="card-header">
+                                <p>Status:</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{task.description|linebreaks}}</p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                            </div>
+                            <div class="card-footer text-body-secondary">
+                                <p>Label(s):</p>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-xl-2 col-lg-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
