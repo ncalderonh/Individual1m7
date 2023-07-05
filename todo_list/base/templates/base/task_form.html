@@ -7,16 +7,63 @@
     <div class="container mt-5 text-start">
         <div class="row">
             <p>
-                <h1 class="fw-bold fs-2">Task FORM</h1>
+            <h1 class="fw-bold fs-2">Task Form</h1>
             </p>
-                <br>
+            <br>
             <div class="container px-5 mt-5">
                 <div class="row">
-                        <div class="col-xl-2 col-lg-2"></div>
-                        <div class="col-xl-8 col-lg-8 col-sm-12 col-md-12 text-center">
-                            <p class="fs-1 h1">UNDER CONTRUCTION</p>
-                        </div>
-                        <div class="col-xl-2 col-lg-2"></div>
+                    <div class="col-xl-2 col-lg-2"></div>
+                    <div class="col-xl-8 col-lg-8 col-sm-12 col-md-12 text-start">
+                        <form class="row g-3 small mb-5">
+                            {% csrf_token %}
+                            <div class="col-md-6">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control form-control-sm" id="title" name="title" value="{{ task.title }}">
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-12">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control form-control-sm" id="description" name="description" rows="10">{{ task.description }}</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="expire" class="form-label">Exprie</label>
+                                <input type="date" class="form-control form-control-sm" id="expire" name="expire" value="{{ task.expire|date }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="label" class="form-label">Label</label>
+                                <select class="form-select form-select-sm" name="label" aria-label=".form-select-sm example">
+                                    <option {% if task.label.tag == 'none' %}selected{% endif %}>--- Select your priority ---</option>
+                                    <option value="1" {% if task.label.tag == 'optional' %}selected{% endif %}>Optional</option>
+                                    <option value="2" {% if task.label.tag == 'normal' %}selected{% endif %}>Normal</option>
+                                    <option value="3" {% if task.label.tag == 'urgent' %}selected{% endif %}>Urgent</option>
+                                    <option value="4" {% if task.label.tag == 'important' %}selected{% endif %}>Important</option>
+                                    <option value="5" {% if task.label.tag == 'very important' %}selected{% endif %}>Very Important</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="expire" class="form-label">Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statustask id="pending" {% if task.statustask.name == 'pending' %}checked{% endif %}>
+                                    <label class="form-check-label" for="pending">
+                                    Pending
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="statustask" id="in_progress" {% if task.statustask.name == 'in progress' %}checked{% endif %}>
+                                    <label class="form-check-label" for="in_progress">
+                                    In progress
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-outline-warning">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xl-2 col-lg-2"></div>
                 </div>
             </div>
         </div>

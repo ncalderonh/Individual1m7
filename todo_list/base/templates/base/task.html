@@ -3,8 +3,7 @@
 {% block estado4 %}active{% endblock%}
 {% block content %}
 <div class="container mt-5 text-center">
-
-    <div class="container mt-5 text-start">
+    <div class="container my-5 text-start">
         <div class="row">
             <p>
             <h1 class="fw-bold fs-2">Task: <span class="fw-normal text-capitalize">{{task}}</span></h1>
@@ -16,21 +15,52 @@
                     <div class="col-xl-8 col-lg-8 col-sm-12 col-md-12 text-center">
                         <div class="card text-start">
                             <div class="card-header">
-                                <p>Status:</p>
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-sm-6 col-md-6 text-start small">
+                                        <span class="align-middle">Status: </span><b class="align-middle {% if task.statustask.name == 'pending' %}text-light{% endif %}
+                                        {% if task.statustask.name == 'in progress' %}text-primary{% endif %}
+                                        {% if task.statustask.name == 'complete' %}text-success{% endif %}
+                                        {% if task.statustask.name == 'cancelled' %}text-danger{% endif %}">{{ task.statustask.name|title }}</b>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-sm-6 col-md-6 text-end">
+                                        <a href="{% url 'task-update' task.id %}" type="button" class="btn btn-outline-warning align-middle" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil align-middle" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                        </svg>
+                                        </a>
+                                        <a href="" type="button" class="btn btn-outline-danger align-middle" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg align-middle" viewBox="0 0 16 16">
+                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                        </svg>
+                                        </a>
+                                        <a href="" type="button" class="btn btn-outline-success align-middle" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle align-middle" viewBox="0 0 16 16">
+                                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                        </svg>
+                                        </a>
+                                        <a href="" type="button" class="btn btn-outline-primary align-middle" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise  align-middle" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                                            <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                                        </svg>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <p class="card-text">{{task.description|linebreaks}}</p>
+                                {{task.description|linebreaks}}
                                 <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                             </div>
-                            <div class="card-footer text-body-secondary">
-                                <p>Label(s):</p>
+                            <div class="card-footer text-body-secondary small">
+                                <span>Priority: <b class="{% if task.label.tag == 'normal' %}badge rounded-pill text-bg-primary{% endif %}
+                                    {% if task.label.tag == 'optional' %}badge rounded-pill text-bg-secondary{% endif %}
+                                    {% if task.label.tag == 'urgent' %}badge rounded-pill text-bg-info{% endif %}
+                                    {% if task.label.tag == 'important' %}badge rounded-pill text-bg-warning{% endif %}
+                                    {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }}</b></span>
                             </div>
                         </div>
                     </div>
-                        <div class="col-xl-2 col-lg-2"></div>
-                    </div>
+                    <div class="col-xl-2 col-lg-2"></div>
                 </div>
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

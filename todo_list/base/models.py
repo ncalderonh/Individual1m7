@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
 
 # Create your models here.
-status_choice = (
-    ('1', 'pending'),
-    ('2', 'in progress'),
-    ('3', 'complete'),
-    ('4', 'cancel'),
-) 
+class Status(models.Model):
+    name = models.CharField(max_length=50)
+
+        
+    def __str__(self):
+        return self.name
+
 class TaskManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(deleted=False)
@@ -27,7 +28,7 @@ class Task(models.Model):
     cancel = models.BooleanField(default=False)
     create = models.DateTimeField(auto_now_add=True)
     expire = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=20, choices=status_choice, default='1')
+    statustask = models.ForeignKey(Status, on_delete=models.DO_NOTHING, max_length=20, null=True, blank=True)
     label = models.ForeignKey(Label, on_delete=models.DO_NOTHING, null=True, blank=True)
     deleted = models.BooleanField(default=False)
 
