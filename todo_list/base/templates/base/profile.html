@@ -75,14 +75,13 @@
                                                 {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }}</b></span>
                                         </td>
                                     </tr>
-                                    
+                                    {% empty %}
+                                    <div class="text-center">
+                                    <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task" id="checklist" class="text-center">
+                                    <h2 id="notasks">No tasks</h2>
+                                    <h4 id="doit">There is no pending task</h4>
                                 </tbody>
                             </table>
-                            {% empty %}
-                            <div class="text-center">
-                            <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task" id="checklist" class="text-center">
-                            <h2 id="notasks">No tasks</h2>
-                            <h4 id="doit">There is no pending task</h4>
                             </div>
                             {% endfor %}
                         </div>
