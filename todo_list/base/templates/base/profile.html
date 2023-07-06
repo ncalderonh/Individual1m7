@@ -27,10 +27,8 @@
                                 <thead>
                                     <tr>
                                         <th style="background-color: var(--main-bg-color);">
-                                            Tasks
                                         </th>
                                         <th class="text-center" style="background-color: var(--main-bg-color);">
-                                            Date
                                         </th>
                                         <th style="background-color: var(--main-bg-color);">
                                         </th>
@@ -48,7 +46,7 @@
                                         <td class="align-middle text-center">
                                             {{task.title}}
                                         </td>
-                                        <td class="align-middle text-end ">
+                                        <td class="align-middle text-end">
                                             <small>C: {{ task.create|date }}<br>E: {{ task.expire|date }}</small>
                                         </td>
                                         <td></td>
@@ -65,10 +63,10 @@
                                         </td>
                                         <td></td>
                                         <td class="align-middle small text-start">
-                                            <b class="{% if task.statustask.name == 'pending' %}badge rounded-pill text-bg-light{% endif %}
-                                {% if task.statustask.name == 'in progress' %}badge rounded-pill text-bg-primary{% endif %}
-                                {% if task.statustask.name == 'complete' %}badge rounded-pill text-bg-success{% endif %}
-                                {% if task.statustask.name == 'cancelled' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.statustask.name|title }}</b>
+                                            <b class="{% if task.complete != True %}{% else %}{% if task.statustask.name == 'pending' %}badge rounded-pill text-bg-light{% endif %}{% endif %}
+                                            {% if task.complete != True %}{% if task.statustask.name == 'in progress' %}badge rounded-pill text-bg-primary{% endif %}{% endif %}
+                                            {% if task.complete == True %}badge rounded-pill text-bg-success{% endif %}
+                                            {% if task.complete != True %}{% else %}{% if task.statustask.name == 'cancelled' %}badge rounded-pill text-bg-danger{% endif %}{% endif %}">{% if task.complete != True %}{{ task.statustask.name|title }}{% else %}Completed{% endif %}</b>
                                 <br>
                                             <b class="{% if task.label.tag == 'normal' %}badge rounded-pill text-bg-primary{% endif %}
                                                 {% if task.label.tag == 'optional' %}badge rounded-pill text-bg-secondary{% endif %}
@@ -77,13 +75,16 @@
                                                 {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }}</b></span>
                                         </td>
                                     </tr>
-                                    {% empty %}
-                                    <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task" id="checklist">
-                                    <h2 id="notasks">No tasks</h2>
-                                    <h4 id="doit">There is no pending task</h4>
-                                    {% endfor %}
+                                    
                                 </tbody>
                             </table>
+                            {% empty %}
+                            <div class="text-center">
+                            <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task" id="checklist" class="text-center">
+                            <h2 id="notasks">No tasks</h2>
+                            <h4 id="doit">There is no pending task</h4>
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3"></div>

@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth.views import LogoutView
-from .views import LoginViewTodoList, profile, TaskDetail, TaskCreate, TaskUpdate
+from .views import LoginViewTodoList, profile, TaskDetail, TaskCreate, TaskUpdate, TaskDelete, StatusChange
 
 
 urlpatterns = [
@@ -12,4 +12,6 @@ urlpatterns = [
     path('profile/task/<int:pk>/', TaskDetail.as_view(), name='task'),
     path('task-create/', TaskCreate.as_view(), name='task-create'),
     path('task-update/<int:pk>/', TaskUpdate.as_view(), name='task-update'),
+    path('task-delete/<int:pk>/', TaskDelete.as_view(), name='task-delete'),
+    path('task-complete/', StatusChange.as_view(), name='task-complete'),
 ]

@@ -64,3 +64,12 @@ function frase(){
     var numRnd=Math.floor(Math.random()* aFrases.length);
     document.getElementById("fraseRandom").innerText=aFrases[numRnd];
     }
+    
+// modal
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})
+
