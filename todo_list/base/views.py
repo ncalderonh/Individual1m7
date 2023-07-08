@@ -1,4 +1,5 @@
 from typing import Any
+from django.forms.models import BaseModelForm
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
@@ -28,6 +29,22 @@ class profile(ListView):
     template_name = 'profile.html'
     ordering = ['expire', 'create']
 
+    def get_queryset(self): # Acá ordeno las querys para ordenar las tareas y filtrar para obtener sólo las tareas del usuario logueado
+        queryset = super().get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user)
+        context['count'] = context['tasks'].filter(complete=False).count()
+
+        search_input = self.request.GET.get('search-area') or '' #Esto indica que la busqueda puede tener un valor o dejarse ne blanco ('')
+        if search_input:
+            context ['tasks'] = context ['tasks'].filter(title__icontains = search_input) # Acá busca por título
+            context['search_input'] = search_input
+        return context
+
 class TaskDetail(DetailView):
     model = Task
     context_object_name =  'task'
@@ -38,6 +55,10 @@ class TaskCreate(CreateView):
     form_class = TaskForm
     template_name = 'base/task_form.html'
     success_url = reverse_lazy('profile')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) # Obtener el contexto
@@ -46,7 +67,6 @@ class TaskCreate(CreateView):
         status = Task.statustask  # Obtener todos los estados del modelo Tarea
         context['status'] = status  # Agregar los estados al contexto
         return context
-
 
 class TaskUpdate(UpdateView):
     model = Task

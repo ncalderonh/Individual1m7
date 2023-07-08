@@ -7,21 +7,65 @@
     <div class="container mt-5 text-center">
         <div class="row">
             <p>
-            <h1 class="text-uppercase">Welcome <b class="fancy">{{ user.first_name }} {{ user.last_name }}</b></h1>
+            <h1 class="text-uppercase">Welcome <b class="fancy">{{ request.user.first_name }} {{ user.last_name }}</b>
+            </h1>
             </p>
             <br>
             <div class="container p-5 my-5">
                 <div class="row">
                     <div class="col-xl-3 col-lg-3"></div>
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-md-12 my-5">
-                        <div class="row text-end mt-5">
-                            <a href="{% url 'task-create' %}"><span class="fs-5 align-middle">Create Task</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                </svg>
-                            </a>
+                    <div class="col-xl-6 col-lg-6 col-sm-12 col-md-12 my-3">
+                        <!-- filter start -->
+                        <div class="row text-end">
+                            <p>
+                            <h5 class="text-start fs-6">Search area</h5>
+                            </p>
+                            <div class="col-12">
+                                <form method="get">
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text text-bg-dark"
+                                            id="inputGroup-sizing-sm">Search</span>
+                                        <input type="search" class="form-control" name="search-area"
+                                            value="{{search_input}}" aria-label="Sizing example input"
+                                            aria-describedby="inputGroup-sizing-sm">
+                                        <button type="submit" class="btn btn-outline-warning"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-search-heart" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z" />
+                                                <path
+                                                    d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" />
+                                            </svg></button>
+                                        <a href="{% url 'profile' %}" type="button"
+                                            class="btn btn-outline-primary align-middle link-primary"
+                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-arrow-counterclockwise  align-middle"
+                                                viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z" />
+                                                <path
+                                                    d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
+                        <!-- filter end and create task start -->
+                        <div class="row text-end mt-5">
+                            <div class="col">
+                                <a href="{% url 'task-create' %}" class="text-end" style="width: 11rem;"><span class="fs-5 align-middle">Create Task</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path
+                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- end create task button -->
                         <div class="row text-end mt-5">
                             <table class="table table-dark table-hover text-center">
                                 <thead>
@@ -51,9 +95,11 @@
                                         </td>
                                         <td></td>
                                         <td class="align-middle">
-                                            <a href="{% url 'task' task.id %}" class="btn btn-outline-warning align-middle">
+                                            <a href="{% url 'task' task.id %}"
+                                                class="btn btn-outline-warning align-middle">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-eye align-middle" viewBox="0 0 16 16" cla>
+                                                    fill="currentColor" class="bi bi-eye align-middle"
+                                                    viewBox="0 0 16 16" cla>
                                                     <path
                                                         d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
                                                     <path
@@ -63,12 +109,14 @@
                                         </td>
                                         <td></td>
                                         <td class="align-middle small text-start">
-                                            <b class="{% if task.complete != True %}{% else %}{% if task.statustask.name == 'pending' %}badge rounded-pill text-bg-light{% endif %}{% endif %}
+                                            <b
+                                                class="{% if task.complete != True %}{% if task.statustask.name == 'pending' %}badge rounded-pill text-bg-light{% endif %}{% endif %}
                                             {% if task.complete != True %}{% if task.statustask.name == 'in progress' %}badge rounded-pill text-bg-primary{% endif %}{% endif %}
                                             {% if task.complete == True %}badge rounded-pill text-bg-success{% endif %}
-                                            {% if task.complete != True %}{% else %}{% if task.statustask.name == 'cancelled' %}badge rounded-pill text-bg-danger{% endif %}{% endif %}">{% if task.complete != True %}{{ task.statustask.name|title }}{% else %}Completed{% endif %}</b>
-                                <br>
-                                            <b class="{% if task.label.tag == 'normal' %}badge rounded-pill text-bg-primary{% endif %}
+                                            {% if task.complete != True %}{% if task.statustask.name == 'cancelled' %}badge rounded-pill text-bg-danger{% endif %}{% endif %}">{% if task.complete != True %}{{ task.statustask.name|title }}{% else %}Completed{% endif %}</b>
+                                            <br>
+                                            <b
+                                                class="{% if task.label.tag == 'normal' %}badge rounded-pill text-bg-primary{% endif %}
                                                 {% if task.label.tag == 'optional' %}badge rounded-pill text-bg-secondary{% endif %}
                                                 {% if task.label.tag == 'urgent' %}badge rounded-pill text-bg-info{% endif %}
                                                 {% if task.label.tag == 'important' %}badge rounded-pill text-bg-warning{% endif %}
@@ -77,19 +125,20 @@
                                     </tr>
                                     {% empty %}
                                     <div class="text-center">
-                                    <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task" id="checklist" class="text-center">
-                                    <h2 id="notasks">No tasks</h2>
-                                    <h4 id="doit">There is no pending task</h4>
+                                        <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task"
+                                            id="checklist" class="text-center">
+                                        <h2 id="notasks">No tasks</h2>
+                                        <h4 id="doit">There is no pending task</h4>
                                 </tbody>
                             </table>
-                            </div>
-                            {% endfor %}
                         </div>
+                        {% endfor %}
                     </div>
-                    <div class="col-xl-3 col-lg-3"></div>
                 </div>
+                <div class="col-xl-3 col-lg-3"></div>
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

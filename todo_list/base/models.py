@@ -29,9 +29,11 @@ class Task(models.Model):
     expire = models.DateTimeField(null=True, blank=True)
     statustask = models.ForeignKey(Status, on_delete=models.DO_NOTHING, max_length=20, null=True, blank=True)
     label = models.ForeignKey(Label, on_delete=models.DO_NOTHING, null=True, blank=True)
+    comment = models.TextField(blank=True, null=True)
 
 
     def __str__(self):
         return self.title
+
     class Meta:
         ordering = ['complete']
