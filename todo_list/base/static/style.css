@@ -111,9 +111,6 @@ a:active {
 #checklist {
     width: 200px;
     height: auto;
-    align-content: center;
-    display: block;
-    position: relative;
 }
 
 .console-container {

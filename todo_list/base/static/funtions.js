@@ -73,3 +73,14 @@ myModal.addEventListener('shown.bs.modal', () => {
   myInput.focus()
 })
 
+document.addEventListener('DOMContentLoaded', function() {
+    var buttons = document.querySelectorAll('[data-bs-target="#modal1"]');
+    var modalInfo = document.getElementById('modal-info');
+  
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        var info = this.getAttribute('data-info');
+        modalInfo.textContent = info;
+      });
+    });
+  });

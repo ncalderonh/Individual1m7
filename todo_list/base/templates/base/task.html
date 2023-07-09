@@ -36,7 +36,7 @@
                                         </a>
                                         {% endif%}
                                         <!-- delete button  -->
-                                        <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button"
+                                        <button data-bs-toggle="modal" data-bs-target="#eliminar" type="button"
                                             class="btn btn-outline-danger align-middle"
                                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -44,13 +44,10 @@
                                                 <path
                                                     d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
                                             </svg>
-                                        </a>
+                                        </button>
                                         {% if task.complete == False %}
                                         <!-- complete button -->
-                                        <form method="post" action="{% url 'task-complete' %}">
-                                            {% csrf_token %}
-                                            <input type="hidden" value="{{task.id}}" name="id" class="z-n1 position-absolute p-5 rounded-3">
-                                        <button type="submit" class="btn btn-outline-success align-middle"
+                                        <button data-bs-toggle="modal" data-bs-target="#complete" type="button" class="btn btn-outline-success align-middle"
                                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><svg
                                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-check2-circle align-middle"
@@ -79,7 +76,51 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                {{task.description|linebreaks}}
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>
+                                                Task description
+                                                {{task.description|linebreaks}}
+                                            </p>
+                                    </div>
+                                </div>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <p>
+                                                Comments
+                                                {% if task.comment == '' %}
+                                                <p style="color: dimgray; opacity: 70%;">
+                                                    There are no comments on this task at the moment.
+                                                </p>
+                                                {% else %}
+                                                {{ task.comment|linebreaks }}
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        <div class="col-2 align-bottom">
+                                            {% if task.comment == '' %}
+                                            <button data-bs-toggle="modal" data-bs-target="#comments" type="button"
+                                            class="btn btn-outline-primary align-bottom"
+                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" disabled><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                              </svg>
+                                            </button>
+                                            {% else %}
+                                            <button data-bs-toggle="modal" data-bs-target="#comments" type="button"
+                                            class="btn btn-outline-warning align-bottom"
+                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" disabled><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-pencil align-middle"
+                                                viewBox="0 0 16 16">
+                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                            </svg>
+                                            </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
                             </div>
                             <div class="card-footer text-body-secondary small">
                                 <span>Priority: <b
@@ -96,8 +137,8 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <!-- Modal delete -->
+    <div class="modal fade" id="eliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -118,6 +159,64 @@
             </div>
         </div>
     </div>
+    <!-- Fin modal -->
+    <!-- Modal complete-->
+    <div class="modal fade" id="complete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><span class="text-success">GREAT!</span> You've made it!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body my-5">
+                    Are you sure you've finished? Afterwards you will not be able to modify this task.
+                </div>
+                <div class="modal-footer">
+                    <form method="post" action="{% url 'task-complete' %}">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{task.id}}" name="id" class="z-n1 position-absolute p-5 rounded-3">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">mmm... not finished yet.</button>
+                    <button type="submit" class="btn btn-outline-success">I'm sure</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin modal -->
+    <!-- Modal comments-->
+    <!-- <div class="modal fade" id="comments" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        {% if task.comment == '' %}
+                        Add your comments
+                        {% else %}
+                        Edit your comment or add more
+                        {% endif %}
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body my-5">
+                    <form class="row g-3 small mb-5" method="POST" action="{% url 'task' task.id %}">
+                        {% csrf_token %}
+                        <div class="col-12">
+                            <label for="comment" class="form-label">Comment</label>
+                            <textarea class="form-control form-control-sm" id="comment" name="comment" rows="7">{{ task.comment }}</textarea>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-outline-warning">Save</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
     <!-- Fin modal -->
 </div>
 {% endblock %}

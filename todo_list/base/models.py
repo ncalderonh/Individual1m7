@@ -26,7 +26,7 @@ class Task(models.Model):
     complete = models.BooleanField(default=False)
     cancel = models.BooleanField(default=False)
     create = models.DateTimeField(auto_now_add=True)
-    expire = models.DateTimeField(null=True, blank=True)
+    expire = models.DateTimeField(null=True)
     statustask = models.ForeignKey(Status, on_delete=models.DO_NOTHING, max_length=20, null=True, blank=True)
     label = models.ForeignKey(Label, on_delete=models.DO_NOTHING, null=True, blank=True)
     comment = models.TextField(blank=True, null=True)
@@ -37,3 +37,4 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['complete']
+

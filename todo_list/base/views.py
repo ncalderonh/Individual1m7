@@ -1,7 +1,7 @@
 from typing import Any
 from django.forms.models import BaseModelForm
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -97,3 +97,15 @@ class StatusChange (TemplateView):
         task.complete = True
         task.save()
         return redirect('profile')
+
+# def comments(request, pk):
+#     instancia = get_object_or_404(Task, pk=pk)
+#     if request.method == 'POST':
+#         form = comment(request.POST, instance=instancia)
+#         if form.is_valid():
+#             form.save()
+#             # Realizar acciones adicionales después de guardar los cambios
+#     else:
+#         form = comment(instance=instancia)
+#     return render(request, 'comments.html', {'form': form})
+

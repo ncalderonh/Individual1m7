@@ -55,10 +55,12 @@
                         <!-- filter end and create task start -->
                         <div class="row text-end mt-5">
                             <div class="col">
-                                <a href="{% url 'task-create' %}" class="text-end" style="width: 11rem;"><span class="fs-5 align-middle">Create Task</span>
+                                <a href="{% url 'task-create' %}" class="text-end" style="width: 11rem;"><span
+                                        class="fs-5 align-middle">Create Task</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                         class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path
+                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                         <path
                                             d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                                     </svg>
@@ -66,73 +68,80 @@
                             </div>
                         </div>
                         <!-- end create task button -->
-                        <div class="row text-end mt-5">
-                            <table class="table table-dark table-hover text-center">
-                                <thead>
-                                    <tr>
-                                        <th style="background-color: var(--main-bg-color);">
-                                        </th>
-                                        <th class="text-center" style="background-color: var(--main-bg-color);">
-                                        </th>
-                                        <th style="background-color: var(--main-bg-color);">
-                                        </th>
-                                        <th style="background-color: var(--main-bg-color);">
-                                        </th>
-                                        <th style="background-color: var(--main-bg-color);">
-                                        </th>
-                                        <th style="background-color: var(--main-bg-color);">
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for task in tasks %}
-                                    <tr>
-                                        <td class="align-middle text-center">
-                                            {{task.title}}
-                                        </td>
-                                        <td class="align-middle text-end">
-                                            <small>C: {{ task.create|date }}<br>E: {{ task.expire|date }}</small>
-                                        </td>
-                                        <td></td>
-                                        <td class="align-middle">
-                                            <a href="{% url 'task' task.id %}"
-                                                class="btn btn-outline-warning align-middle">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-eye align-middle"
-                                                    viewBox="0 0 16 16" cla>
-                                                    <path
-                                                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                                                    <path
-                                                        d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                                                </svg>
-                                            </a>
-                                        </td>
-                                        <td></td>
-                                        <td class="align-middle small text-start">
-                                            <b
-                                                class="{% if task.complete != True %}{% if task.statustask.name == 'pending' %}badge rounded-pill text-bg-light{% endif %}{% endif %}
-                                            {% if task.complete != True %}{% if task.statustask.name == 'in progress' %}badge rounded-pill text-bg-primary{% endif %}{% endif %}
-                                            {% if task.complete == True %}badge rounded-pill text-bg-success{% endif %}
-                                            {% if task.complete != True %}{% if task.statustask.name == 'cancelled' %}badge rounded-pill text-bg-danger{% endif %}{% endif %}">{% if task.complete != True %}{{ task.statustask.name|title }}{% else %}Completed{% endif %}</b>
-                                            <br>
-                                            <b
-                                                class="{% if task.label.tag == 'normal' %}badge rounded-pill text-bg-primary{% endif %}
-                                                {% if task.label.tag == 'optional' %}badge rounded-pill text-bg-secondary{% endif %}
-                                                {% if task.label.tag == 'urgent' %}badge rounded-pill text-bg-info{% endif %}
-                                                {% if task.label.tag == 'important' %}badge rounded-pill text-bg-warning{% endif %}
-                                                {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }}</b></span>
-                                        </td>
-                                    </tr>
-                                    {% empty %}
-                                    <div class="text-center">
-                                        <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task"
-                                            id="checklist" class="text-center">
-                                        <h2 id="notasks">No tasks</h2>
-                                        <h4 id="doit">There is no pending task</h4>
-                                </tbody>
-                            </table>
+                        <div class="container text-end mt-5">
+                            <div class="row">
+                                <table class="table table-dark table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: var(--main-bg-color);">
+                                            </th>
+                                            <th class="text-center" style="background-color: var(--main-bg-color);">
+                                            </th>
+                                            <th style="background-color: var(--main-bg-color);">
+                                            </th>
+                                            <th style="background-color: var(--main-bg-color);">
+                                            </th>
+                                            <th style="background-color: var(--main-bg-color);">
+                                            </th>
+                                            <th style="background-color: var(--main-bg-color);">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for task in tasks %}
+                                        {% if task.complete  == False %}
+                                        <tr>
+                                            <td class="align-middle text-center">
+                                                {{task.title}}
+                                            </td>
+                                            <td class="align-middle text-end">
+                                                <small>C: {{ task.create|date }}<br>E: {{ task.expire|date }}</small>
+                                            </td>
+                                            <td></td>
+                                            <td class="align-middle">
+                                                <a href="{% url 'task' task.id %}"
+                                                    class="btn btn-outline-warning align-middle">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-eye align-middle"
+                                                        viewBox="0 0 16 16" cla>
+                                                        <path
+                                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                                        <path
+                                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                            <td></td>
+                                            <td class="align-middle small text-start">
+                                                <b
+                                                    class="{% if task.complete != True %}{% if task.statustask.name == 'pending' %}badge rounded-pill text-bg-light{% endif %}{% endif %}
+                                                {% if task.complete != True %}{% if task.statustask.name == 'in progress' %}badge rounded-pill text-bg-primary{% endif %}{% endif %}
+                                                {% if task.complete == True %}badge rounded-pill text-bg-success{% endif %}
+                                                {% if task.complete != True %}{% if task.statustask.name == 'cancelled' %}badge rounded-pill text-bg-danger{% endif %}{% endif %}">{% if task.complete != True %}{{ task.statustask.name|title }}{% else %}Completed{% endif %}</b>
+                                                <br>
+                                                <b
+                                                    class="{% if task.label.tag == 'normal' %}badge rounded-pill text-bg-primary{% endif %}
+                                                    {% if task.label.tag == 'optional' %}badge rounded-pill text-bg-secondary{% endif %}
+                                                    {% if task.label.tag == 'urgent' %}badge rounded-pill text-bg-info{% endif %}
+                                                    {% if task.label.tag == 'important' %}badge rounded-pill text-bg-warning{% endif %}
+                                                    {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }}</b></span>
+                                            </td>
+                                        </tr>
+                                        {% endif %}  
+                                        {% empty %}
+                                        <div class="row">
+                                            <div class="col text-center">
+                                                <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task"
+                                                id="checklist" style="margin-left: 33%;">
+                                                <h2 id="notasks">No tasks</h2>
+                                                <h4 id="doit">There are no tasks here, there are no results or you have no pending tasks</h4>
+                                            </div>
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% endfor %}                                        
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-3"></div>
