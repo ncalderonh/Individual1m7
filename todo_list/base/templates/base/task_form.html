@@ -30,12 +30,12 @@
                                 <label for="comment" class="form-label">Comment</label>
                                 <textarea class="form-control form-control-sm" id="comment" name="comment" rows="7">{{ task.comment }}</textarea>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="expire" class="form-label">Expire</label>
                                 <input type="date" class="form-control form-control-sm" id="expire" name="expire" value="{{ task.expire|date:'m/d/y' }}">
                             </div>
-                            <div class="col-md-6">
-                                <label for="label" class="form-label">Label</label>
+                            <div class="col-md-4">
+                                <label for="label" class="form-label">Priority</label>
                                 <select class="form-select form-select-sm" name="label" aria-label=".form-select-sm example" requerid>
                                     <option {% if task.label.tag == 'none' %}selected{% endif %}>--- Select your priority ---</option>
                                     <option value="6" {% if task.label.tag == 'optional' %}selected{% endif %}>Optional</option>
@@ -45,7 +45,20 @@
                                     <option value="5" {% if task.label.tag == 'very important' %}selected{% endif %}>Very Important</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label for="category" class="form-label">Category</label>
+                                <select class="form-select form-select-sm" name="category" aria-label=".form-select-sm example" requerid>
+                                    <option {% if task.category.name == 'none' %}selected{% endif %}>--- Select your priority ---</option>
+                                    <option value="1" {% if task.category.name == 'Home' %}selected{% endif %}>Home</option>
+                                    <option value="2" {% if task.category.name == 'Work' %}selected{% endif %}>Work</option>
+                                    <option value="3" {% if task.category.name == 'Pets' %}selected{% endif %}>Pets</option>
+                                    <option value="4" {% if task.category.name == 'Family' %}selected{% endif %}>Family</option>
+                                    <option value="5" {% if task.category.name == 'Study' %}selected{% endif %}>Study</option>
+                                    <option value="6" {% if task.category.name == 'Shopping' %}selected{% endif %}>Shopping</option>
+                                    <option value="7" {% if task.category.name == 'Medic' %}selected{% endif %}>Medic</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
                                 <label for="expire" class="form-label">Status</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="statustask" id="pending" value="1" {% if task.statustask.name == 'pending' %}checked{% endif %}>
@@ -60,7 +73,18 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3 form-check form-switch">
+                                <label for="switch">Assign task</label>
+                                <input type="checkbox" class="form-check-input" id="flexSwitchCheckDefault" role="switch" onclick="habilitarSelect()">
+                            </div>
+                            <div class="col-md-5">
+                                <select id="selectOptions" name='user' class="form-select form-select-sm" aria-label=".form-select-sm example"  disabled>
+                                    <option value="{{ user.id }}" selected>{{ user.first_name }} {{ user.last_name }}</option>
+                                    {% for person in users %}{% if person != user %}
+                                    <option value="{{ person.id }}">{{ person.first_name }} {{ person.last_name }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                  </select>
                             </div>
                             <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button onclick="history.back()" type="button"

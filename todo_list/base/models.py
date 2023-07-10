@@ -13,6 +13,15 @@ class Status(models.Model):
     def __str__(self):
         return self.name
     
+class Category(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+    
+    def __str__(self):
+        return self.name
+    
 class Label(models.Model):
     tag = models.CharField(max_length=20, unique=True)
     
@@ -29,6 +38,7 @@ class Task(models.Model):
     expire = models.DateTimeField(null=True)
     statustask = models.ForeignKey(Status, on_delete=models.DO_NOTHING, max_length=20, null=True, blank=True)
     label = models.ForeignKey(Label, on_delete=models.DO_NOTHING, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True, blank=True)
     comment = models.TextField(blank=True, null=True)
 
 

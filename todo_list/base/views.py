@@ -8,9 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from .models import Task, Label
+from .models import Task, Label, Category, Status
 from .forms import TaskForm
+from datetime import datetime
 
 # Create your views here.
 def index(request):
@@ -37,7 +39,10 @@ class profile(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(user=self.request.user)
-        context['count'] = context['tasks'].filter(complete=False).count()
+        context['count1'] = context['tasks'].filter(complete=True, user=self.request.user).count()
+        context['count2'] = context['tasks'].filter(statustask=1 ,user=self.request.user).count()
+        context['count3'] = context['tasks'].filter(statustask=2, user=self.request.user).count()
+        context['count4'] = context['tasks'].filter(expire__lt=datetime.now(), user=self.request.user).count()
 
         search_input = self.request.GET.get('search-area') or '' #Esto indica que la busqueda puede tener un valor o dejarse ne blanco ('')
         if search_input:
@@ -64,8 +69,13 @@ class TaskCreate(CreateView):
         context = super().get_context_data(**kwargs) # Obtener el contexto
         labels = Label.objects.all()  # Obtener todas las etiquetas
         context['labels'] = labels  # Agregar las etiquetas al contexto
+        categories = Category.objects.all()  # Obtener todas las etiquetas
+        context['categories'] = categories  # Agregar las etiquetas al contexto
         status = Task.statustask  # Obtener todos los estados del modelo Tarea
         context['status'] = status  # Agregar los estados al contexto
+        user = User.objects.all()
+        context['users'] = user
+        context['actualuser'] = self.request.user
         return context
 
 class TaskUpdate(UpdateView):
@@ -77,8 +87,12 @@ class TaskUpdate(UpdateView):
         context = super().get_context_data(**kwargs) # Obtener el contexto
         labels = Label.objects.all()  # Obtener todas las etiquetas
         context['labels'] = labels  # Agregar las etiquetas al contexto
+        categories = Category.objects.all()  # Obtener todas las etiquetas
+        context['categories'] = categories  # Agregar las etiquetas al contexto
         status = Task.statustask  # Obtener todos los estados del modelo Tarea
         context['status'] = status  # Agregar los estados al contexto
+        user = User.objects.all()
+        context['users'] = user
         return context
     
     def get_success_url(self):
@@ -93,19 +107,14 @@ class TaskDelete(DeleteView, LoginRequiredMixin):
 class StatusChange (TemplateView):
         
     def post(self, request):
-        task = Task.objects.get(id = request.POST.get('id'))
+        task_id = request.POST.get('id')
+        task = Task.objects.get(id=task_id)
+
+        completed_status = Status.objects.get(name="complete")
+        task.statustask = completed_status
+        
+        # Establecer complete como True
         task.complete = True
+        
         task.save()
         return redirect('profile')
-
-# def comments(request, pk):
-#     instancia = get_object_or_404(Task, pk=pk)
-#     if request.method == 'POST':
-#         form = comment(request.POST, instance=instancia)
-#         if form.is_valid():
-#             form.save()
-#             # Realizar acciones adicionales después de guardar los cambios
-#     else:
-#         form = comment(instance=instancia)
-#     return render(request, 'comments.html', {'form': form})
-

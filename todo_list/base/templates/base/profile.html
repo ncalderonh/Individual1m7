@@ -51,6 +51,46 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="col-12 text-center text-decoration">
+                                <p>YOUR RESUME</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="position-relative">
+                                            Pending 
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-light">
+                                                {{ count2 }}
+                                            </span>
+                                        </span>
+                                    </div>
+                                    |
+                                    <div class="col">
+                                        <span class="position-relative">
+                                            In Progress
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-primary">
+                                                {{ count3 }}
+                                            </span>
+                                        </span>
+                                    </div>
+                                    |
+                                    <div class="col">
+                                        <span class="position-relative">
+                                            Expired
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">
+                                                {{ count4 }}
+                                            </span>
+                                        </span>
+                                    </div>
+                                    |
+                                    <div class="col">
+                                        <span class="position-relative">
+                                            Completed
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-success">
+                                                {{ count1 }}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- filter end and create task start -->
                         <div class="row text-end mt-5">
@@ -65,6 +105,44 @@
                                             d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                                     </svg>
                                 </a>
+                                <br>
+                                <a class="text-decoration-none link-success" style="width: 11rem;" data-bs-toggle="offcanvas" href="#TasksCompleted" role="button" aria-controls="TasksCompleted">
+                                    <span class="fs-5 align-middle">See completed tasks</span>
+                                </a>
+                                    <div class="offcanvas offcanvas-start" tabindex="-1" id="TasksCompleted" aria-labelledby="TasksCompletedLabel">
+                                        <div class="offcanvas-header bg-success">
+                                            <h5 class="offcanvas-title" id="TasksCompletedLabel">COMPLETED TASKS</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                        </div>
+                                        <div class="offcanvas-body">
+                                            <div class="container">
+                                                <div class="row">
+                                                    {% for task in tasks %}
+                                                    {% if task.complete  == True %}
+                                                    <div class="col-8 text-start border-bottom my-2">
+                                                        {{task.title}}
+                                                        <br>
+                                                        <small>C: {{ task.create|date }}</small><br><small {% if task.expire < task.create %} class="text-danger"{% endif %}>E: {{ task.expire|date }}</small>
+                                                    </div>
+                                                    <div class="col-4 text-center border-bottom my-2">
+                                                        <a href="{% url 'task' task.id %}"
+                                                                    class="btn btn-outline-warning align-middle">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                                        fill="currentColor" class="bi bi-eye align-middle"
+                                                                        viewBox="0 0 16 16" cla>
+                                                                        <path
+                                                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                                                        <path
+                                                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+                                                        {% endif %}                                         
+                                                {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                         <!-- end create task button -->
@@ -95,7 +173,7 @@
                                                 {{task.title}}
                                             </td>
                                             <td class="align-middle text-end">
-                                                <small>C: {{ task.create|date }}<br>E: {{ task.expire|date }}</small>
+                                                <small>C: {{ task.create|date }}</small><br><small {% if task.expire < task.create %} class="text-danger"{% endif %}>E: {{ task.expire|date }}</small>
                                             </td>
                                             <td></td>
                                             <td class="align-middle">
@@ -120,11 +198,21 @@
                                                 {% if task.complete != True %}{% if task.statustask.name == 'cancelled' %}badge rounded-pill text-bg-danger{% endif %}{% endif %}">{% if task.complete != True %}{{ task.statustask.name|title }}{% else %}Completed{% endif %}</b>
                                                 <br>
                                                 <b
+                                                    class="{% if task.category.name == 'Home' %}badge rounded-pill text-bg-secondary{% endif %}
+                                                    {% if task.category.name == 'Work' %}badge rounded-pill text-bg-light{% endif %}
+                                                    {% if task.category.name == 'Pets' %}badge rounded-pill text-bg-warning{% endif %}
+                                                    {% if task.category.name == 'Family' %}badge rounded-pill text-bg-success{% endif %}
+                                                    {% if task.category.name == 'Study' %}badge rounded-pill text-bg-primary{% endif %}
+                                                    {% if task.category.name == 'Shopping' %}badge rounded-pill text-bg-info{% endif %}
+                                                    {% if task.category.name == 'Medic' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.category|title }}
+                                                    </b>
+                                                <br>
+                                                <b
                                                     class="{% if task.label.tag == 'normal' %}badge rounded-pill text-bg-primary{% endif %}
                                                     {% if task.label.tag == 'optional' %}badge rounded-pill text-bg-secondary{% endif %}
                                                     {% if task.label.tag == 'urgent' %}badge rounded-pill text-bg-info{% endif %}
                                                     {% if task.label.tag == 'important' %}badge rounded-pill text-bg-warning{% endif %}
-                                                    {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }}</b></span>
+                                                    {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }}</b>
                                             </td>
                                         </tr>
                                         {% endif %}  
@@ -132,7 +220,7 @@
                                         <div class="row">
                                             <div class="col text-center">
                                                 <img src="{% static 'assets/images/checklist-logo.png' %}" alt="no task"
-                                                id="checklist" style="margin-left: 33%;">
+                                                id="checklist" class="mx-auto d-block">
                                                 <h2 id="notasks">No tasks</h2>
                                                 <h4 id="doit">There are no tasks here, there are no results or you have no pending tasks</h4>
                                             </div>
@@ -140,7 +228,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {% endfor %}                                        
+                            {% endfor %}                                     
                         </div>
                     </div>
                 </div>

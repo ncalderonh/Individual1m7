@@ -128,7 +128,16 @@
                                     {% if task.label.tag == 'optional' %}badge rounded-pill text-bg-secondary{% endif %}
                                     {% if task.label.tag == 'urgent' %}badge rounded-pill text-bg-info{% endif %}
                                     {% if task.label.tag == 'important' %}badge rounded-pill text-bg-warning{% endif %}
-                                    {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }}</b></span>
+                                    {% if task.label.tag == 'very important' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.label|title }} </b></span>
+                                    <span> | Category: <b
+                                        class="{% if task.category.name == 'Home' %}badge rounded-pill text-bg-secondary{% endif %}
+                                        {% if task.category.name == 'Work' %}badge rounded-pill text-bg-light{% endif %}
+                                        {% if task.category.name == 'Pets' %}badge rounded-pill text-bg-warning{% endif %}
+                                        {% if task.category.name == 'Family' %}badge rounded-pill text-bg-success{% endif %}
+                                        {% if task.category.name == 'Study' %}badge rounded-pill text-bg-primary{% endif %}
+                                        {% if task.category.name == 'Shopping' %}badge rounded-pill text-bg-info{% endif %}
+                                        {% if task.category.name == 'Medic' %}badge rounded-pill text-bg-danger{% endif %}">{{ task.category|title }}
+                                        </b></span>
                             </div>
                         </div>
                     </div>

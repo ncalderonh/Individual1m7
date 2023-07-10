@@ -84,3 +84,11 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
+
+// task form assign task
+  function habilitarSelect() {
+    var switchElement = document.getElementById('flexSwitchCheckDefault');
+    var select = document.getElementById('selectOptions');
+    
+    select.disabled = !switchElement.checked; // Habilitar el select si el switch está marcado
+  }
